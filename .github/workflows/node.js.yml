@@ -27,7 +27,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./index.js"
+          source: "./"
           target: "/var/www/livestreaming-ecommerce-server"
 
       - name: Run SSH command on target
@@ -37,6 +37,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            service server stop
             npm install
             PATH=$PATH:/root/.nvm/versions/node/v14.17.6/bin
             pm2 restart server
