@@ -1,1 +1,1 @@
-# livestreaming_ecommerce_server
+# livestreaming-ecommerce-server
