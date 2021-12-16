@@ -5,7 +5,7 @@ name: Server
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   bulid:
@@ -21,23 +21,21 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 
-    - name: Copy build files to production server
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        key: ${{ secrets.SSH_KEY }}
-        source: "*"
-        target: "/var/www/livestreaming-ecommerce-server"
+      - name: Copy build files to production server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "./"
+          target: "/var/www/livestreaming-ecommerce-server"
 
-    - name: Run SSH command on target
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          PATH=$PATH:/root/.nvm/versions/node/v14.17.6/bin
-          pm2 restart server
-      
-    
+      - name: Run SSH command on target
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            PATH=$PATH:/root/.nvm/versions/node/v14.17.6/bin
+            pm2 restart server
