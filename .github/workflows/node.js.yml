@@ -37,5 +37,6 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            npm install
             PATH=$PATH:/root/.nvm/versions/node/v14.17.6/bin
             pm2 restart server
