@@ -1,6 +1,9 @@
 const Vendor = require("../models/venor");
 const bcrypt = require("bcryptjs");
 
+const jwt = require("jsonwebtoken");
+const keys = require("../config/keys");
+
 //Load validation
 const validateLoginInput = require("../validation/vendor/login");
 const validateRegisterInput = require("../validation/vendor/register");
@@ -41,7 +44,15 @@ const register = async (req, res) => {
         newVendor.password = hash;
         newVendor
           .save()
-          .then((vendor) => res.send({ status: 200, message: "success" }))
+          .then((vendor) =>
+            res.send({
+              status: 200,
+              message: "success",
+              email: newVendor.email,
+              userName: newVendor.name,
+              role: newVendor.role,
+            })
+          )
           .catch((err) => console.log(err));
       });
     });
@@ -50,16 +61,21 @@ const register = async (req, res) => {
 
 //login
 const login = async (req, res) => {
-  const { errors, isValid } = validateLoginInput(req.body);
+  const { errors, errorMsg, isValid } = validateLoginInput(req.body);
   if (!isValid) {
-    return res.status(404).json(errors);
+    throw new HttpException(400, errorMsg);
   }
   const email = req.body.email;
   const password = req.body.password;
-  Vendor.findOne({ email }).then((vendor) => {
+  const role = req.body.role;
+  await Vendor.findOne({ email, role }).then((vendor) => {
     if (!vendor) {
-      errors.email = "Vendor not found";
-      return res.status(400).json(errors);
+      if (role === 0) {
+        errors.email = "Vendor not found";
+      } else {
+        errors.email = "User not found";
+      }
+      throw new HttpException(400, errors.email);
     }
 
     // Check Password
@@ -75,15 +91,17 @@ const login = async (req, res) => {
           { expiresIn: 36000 },
           (err, token) => {
             res.json({
+              status: 200,
               success: true,
-              vendor: vendor,
+              email: vendor.email,
+              userName: vendor.name,
+              role: vendor.role,
               token: "Bearer " + token,
             });
           }
         );
       } else {
-        errors.password = "Password incorrect";
-        return res.status(400).json(errors);
+        return res.json({ status: 400, message: "Password incorrect" });
       }
     });
   });
