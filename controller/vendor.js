@@ -82,7 +82,12 @@ const login = async (req, res) => {
     bcrypt.compare(password, vendor.password).then((isMatch) => {
       if (isMatch) {
         // Vendor Matched
-        const payload = { id: vendor.id, name: vendor.name, role: vendor.role }; // Create JWT Payload
+        const payload = {
+          id: vendor.id,
+          name: vendor.name,
+          role: vendor.role,
+          email: vendor.email,
+        }; // Create JWT Payload
 
         // Sign Token
         jwt.sign(
