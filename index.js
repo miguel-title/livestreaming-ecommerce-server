@@ -10,7 +10,7 @@ const HttpException = require("./utils/HttpException.utils");
 const errorMiddleware = require("./middleware/errorMiddleware");
 
 // import Custom Router
-const vendorRouter = require("./routes/api/Vendor");
+const vendorRouter = require("./routes/api/vendor");
 
 const app = express();
 // parse requests of content-type: application/json
