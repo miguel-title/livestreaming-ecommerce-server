@@ -5,12 +5,12 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 // import middleware
-const HttpException = require("utils/HttpException.utils");
+const HttpException = require("./utils/HttpException.utils");
 //import error middleware
-const errorMiddleware = require("middleware/errorMiddleware");
+const errorMiddleware = require("./middleware/errorMiddleware");
 
 // import Custom Router
-const vendorRouter = require("routes/api/Vendor");
+const vendorRouter = require("./routes/api/Vendor");
 
 const app = express();
 // parse requests of content-type: application/json
@@ -22,7 +22,7 @@ app.use(cors());
 // Enable pre-flight
 app.options("*", cors());
 
-const db = require("config/keys").mongoURI;
+const db = require("./config/keys").mongoURI;
 mongoose
   .connect(db)
   .then(() => console.log("MongoDB connected"))
