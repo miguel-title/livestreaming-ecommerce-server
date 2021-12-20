@@ -1,4 +1,4 @@
 module.exports = {
-  mongoURI: "mongodb://localhost:27017/treebee",
+  mongoURI: "mongodb://api.treebee.com.br:27017/treebee",
   secretOrKey: "treebee",
 };
