@@ -17,8 +17,8 @@ const register = async (req, res) => {
   }
   await Vendor.findOne({ email: req.body.email }).then((vendor) => {
     if (vendor) {
-      errors.email = "Email already exists";
-      throw new HttpException(400, "Email already exists");
+      errors.email = "e-mail já existe";
+      throw new HttpException(400, "e-mail já existe");
     }
 
     const newVendor = new Vendor({
@@ -71,9 +71,9 @@ const login = async (req, res) => {
   await Vendor.findOne({ email, role }).then((vendor) => {
     if (!vendor) {
       if (role === 0) {
-        errors.email = "Vendor not found";
+        errors.email = "Vendedor não encontrado";
       } else {
-        errors.email = "User not found";
+        errors.email = "Usuário não encontrado";
       }
       throw new HttpException(400, errors.email);
     }
