@@ -9,21 +9,21 @@ module.exports = function validateLoginInput(data) {
   data.password = !isEmpty(data.password) ? data.password : "";
 
   if (!Validator.isEmail(data.email)) {
-    errors.email = "Email is invalid";
+    errors.email = "Email inválido";
     if (isEmpty(errorMsg)) {
       errorMsg = errors.email;
     }
   }
 
   if (Validator.isEmpty(data.email)) {
-    errors.email = "Email field is required";
+    errors.email = "E-mail é obrigatório";
     if (isEmpty(errorMsg)) {
       errorMsg = errors.email;
     }
   }
 
   if (Validator.isEmpty(data.password)) {
-    errors.password = "Password field is required";
+    errors.password = "Senha requerida";
     if (isEmpty(errorMsg)) {
       errorMsg = errors.password;
     }

@@ -106,7 +106,7 @@ const login = async (req, res) => {
           }
         );
       } else {
-        return res.json({ status: 400, message: "Password incorrect" });
+        return res.json({ status: 400, message: "Senha é incorreta" });
       }
     });
   });
