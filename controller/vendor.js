@@ -59,6 +59,17 @@ const register = async (req, res) => {
   });
 };
 
+//updateAccount
+const updateAccount = async (req, res) => {
+  await Vendor.findByIdAndUpdate(req.body.id, req.body, { new: true })
+    .then(async (item) => {
+      res.send({ status: 200, message: "success" });
+    })
+    .catch((err) => {
+      res.send({ status: 400, message: err });
+    });
+};
+
 //login
 const login = async (req, res) => {
   const { errors, errorMsg, isValid } = validateLoginInput(req.body);
@@ -112,7 +123,22 @@ const login = async (req, res) => {
   });
 };
 
+const getAccountInfo = async (req, res) => {
+  const nID = req.body.id;
+  await Vendor.findById(nID).then((accountInfo) => {
+    if (!accountInfo) {
+      errors.msg = "O servidor está com problemas.";
+      throw new HttpException(400, errors.msg);
+    }
+
+    console.log(accountInfo);
+    res.send(accountInfo);
+  });
+};
+
 module.exports = {
   login,
   register,
+  getAccountInfo,
+  updateAccount,
 };

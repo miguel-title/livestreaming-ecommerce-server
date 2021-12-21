@@ -11,4 +11,8 @@ router.post("/login", awaitHandlerFactory(VController.login));
 
 router.post("/register", awaitHandlerFactory(VController.register));
 
+router.post("/updateAccount", awaitHandlerFactory(VController.updateAccount));
+
+router.post("/accountInfo", awaitHandlerFactory(VController.getAccountInfo));
+
 module.exports = router;
