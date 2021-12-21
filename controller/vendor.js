@@ -131,14 +131,38 @@ const getAccountInfo = async (req, res) => {
       throw new HttpException(400, errors.msg);
     }
 
-    console.log(accountInfo);
     res.send(accountInfo);
   });
 };
+
+// const upload = async (req, res) => {
+//   let sampleFile;
+//   let uploadPath;
+
+//   if (!req || Object.keys(req).length === 0) {
+//     res.status(400).send("No files were uploaded.");
+//     return;
+//   }
+
+//   sampleFile = req;
+
+//   uploadPath = "../uploads/" + sampleFile.name;
+
+//   console.log(uploadPath, "aaa");
+
+//   sampleFile.mv(uploadPath, function (err) {
+//     if (err) {
+//       return res.status(500).send(err);
+//     }
+
+//     res.send("File uploaded to " + uploadPath);
+//   });
+// };
 
 module.exports = {
   login,
   register,
   getAccountInfo,
   updateAccount,
+  // upload,
 };
