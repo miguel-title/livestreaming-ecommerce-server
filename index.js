@@ -3,6 +3,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+var path = require("path");
 
 // import middleware
 const HttpException = require("./utils/HttpException.utils");
@@ -30,6 +31,7 @@ mongoose
 
 //Use Routes
 app.use("/vendor", vendorRouter);
+app.use(express.static(path.join(__dirname, "uploads")));
 
 app.all("*", (req, res, next) => {
   const error = new HttpException(404, "Endpoint Not Found.");
