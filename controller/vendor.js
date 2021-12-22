@@ -49,7 +49,7 @@ const register = async (req, res) => {
           .then((vendor) =>
             res.send({
               status: 200,
-              message: "success",
+              message: "Usuário Registrado!",
               email: newVendor.email,
               userName: newVendor.name,
               role: newVendor.role,
