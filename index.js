@@ -31,7 +31,7 @@ mongoose
 
 //Use Routes
 app.use("/vendor", vendorRouter);
-app.use(express.static(path.join(__dirname, "uploads")));
+app.use(express.static(path.join(__dirname, "uploads/avatars")));
 
 app.all("*", (req, res, next) => {
   const error = new HttpException(404, "Endpoint Not Found.");
