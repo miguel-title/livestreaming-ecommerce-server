@@ -32,12 +32,12 @@ mongoose
 app.use("/vendor", vendorRouter);
 
 app.all("*", (req, res, next) => {
-  const error = new HttpException(404, "Endpoint Not Found.");
-  next(error);
+  // const error = new HttpException(404, "Endpoint Not Found.");
+  // next(error);
 });
 
 // Error middleware
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
