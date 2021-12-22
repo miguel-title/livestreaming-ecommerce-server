@@ -99,6 +99,7 @@ const login = async (req, res) => {
           name: vendor.name,
           role: vendor.role,
           email: vendor.email,
+          avataUrl: vendor.avata,
         }; // Create JWT Payload
 
         // Sign Token
