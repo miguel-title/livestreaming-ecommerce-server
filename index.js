@@ -32,7 +32,7 @@ mongoose
 app.use("/vendor", vendorRouter);
 
 app.all("*", (req, res, next) => {
-  const error = new HttpException(404, "Endpoint Not Found.");
+  const error = new HttpException(404, "Endpoint Not Found!");
   next(error);
 });
 
