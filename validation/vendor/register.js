@@ -84,7 +84,7 @@ module.exports = function validateRegisterInput(data) {
   }
 
   if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-    errors.password = "Password must be at least 6 characters";
+    errors.password = "A senha deve ter mais de 6 caracteres.";
     if (isEmpty(errorMsg)) {
       errorMsg = errors.password;
     }
