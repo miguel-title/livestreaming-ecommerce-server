@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const VendorSchema = new Schema({
-  avatar: { type: Schema.Types.String },
+  avata: { type: Schema.Types.String },
   name: {
     type: Schema.Types.String,
     required: true,

@@ -22,6 +22,7 @@ const register = async (req, res) => {
     }
 
     const newVendor = new Vendor({
+      avata: req.body.avata,
       name: req.body.name,
       surname: req.body.surname,
       email: req.body.email,
@@ -112,6 +113,7 @@ const login = async (req, res) => {
               email: vendor.email,
               userName: vendor.name,
               role: vendor.role,
+              avataUrl: vendor.avata,
               token: "Bearer " + token,
             });
           }
@@ -135,34 +137,17 @@ const getAccountInfo = async (req, res) => {
   });
 };
 
-// const upload = async (req, res) => {
-//   let sampleFile;
-//   let uploadPath;
+const uploadFile = async (req, res) => {
+  const url = req.protocol + "://" + req.get("host");
+  const fileUrl = url + "/" + req.file.path;
 
-//   if (!req || Object.keys(req).length === 0) {
-//     res.status(400).send("No files were uploaded.");
-//     return;
-//   }
-
-//   sampleFile = req;
-
-//   uploadPath = "../uploads/" + sampleFile.name;
-
-//   console.log(uploadPath, "aaa");
-
-//   sampleFile.mv(uploadPath, function (err) {
-//     if (err) {
-//       return res.status(500).send(err);
-//     }
-
-//     res.send("File uploaded to " + uploadPath);
-//   });
-// };
+  return res.json({ url: fileUrl });
+};
 
 module.exports = {
   login,
   register,
   getAccountInfo,
   updateAccount,
-  // upload,
+  uploadFile,
 };
