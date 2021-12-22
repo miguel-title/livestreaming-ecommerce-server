@@ -138,7 +138,7 @@ const getAccountInfo = async (req, res) => {
 };
 
 const uploadFile = async (req, res) => {
-  const url = req.protocol + "://" + req.get("host");
+  const url = req.protocol + "://api.treebee.com.br"; // + req.get("host");
   const fileUrl = url + "/" + req.file.path;
 
   return res.json({ url: fileUrl });
