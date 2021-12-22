@@ -6,11 +6,9 @@ const VendorSchema = new Schema({
   avata: { type: Schema.Types.String },
   name: {
     type: Schema.Types.String,
-    required: true,
   },
   surname: {
     type: Schema.Types.String,
-    required: true,
   },
   email: {
     type: Schema.Types.String,
@@ -18,7 +16,6 @@ const VendorSchema = new Schema({
   },
   cpf: {
     type: Schema.Types.String,
-    required: true,
   },
   store: {
     type: Schema.Types.String,

@@ -12,6 +12,7 @@ const HttpException = require("../utils/HttpException.utils");
 //register
 const register = async (req, res) => {
   const { errors, errorMsg, isValid } = validateRegisterInput(req.body);
+
   if (!isValid) {
     throw new HttpException(400, errorMsg);
   }

@@ -18,30 +18,34 @@ module.exports = function validateRegisterInput(data) {
 
   var errorMsg = "";
 
-  if (Validator.isEmpty(data.name)) {
-    errors.name = "Name field is required";
-    if (isEmpty(errorMsg)) {
-      errorMsg = errors.name;
+  if (data.role == 1) {
+    if (Validator.isEmpty(data.name)) {
+      errors.name = "Name field is required";
+      if (isEmpty(errorMsg)) {
+        errorMsg = errors.name;
+      }
+    }
+    if (Validator.isEmpty(data.surname)) {
+      errors.surname = "Surname field is required";
+      if (isEmpty(errorMsg)) {
+        errorMsg = errors.surname;
+      }
+    }
+    if (Validator.isEmpty(data.cpf)) {
+      errors.cpf = "Cpf field is required";
+      if (isEmpty(errorMsg)) {
+        errorMsg = errors.cpf;
+      }
     }
   }
-  if (Validator.isEmpty(data.surname)) {
-    errors.surname = "Surname field is required";
-    if (isEmpty(errorMsg)) {
-      errorMsg = errors.surname;
-    }
-  }
+
   if (Validator.isEmpty(data.email)) {
     errors.email = "Email field is required";
     if (isEmpty(errorMsg)) {
       errorMsg = errors.email;
     }
   }
-  if (Validator.isEmpty(data.cpf)) {
-    errors.cpf = "Cpf field is required";
-    if (isEmpty(errorMsg)) {
-      errorMsg = errors.cpf;
-    }
-  }
+
   if (Validator.isEmpty(data.store)) {
     errors.store = "Store field is required";
     if (isEmpty(errorMsg)) {
