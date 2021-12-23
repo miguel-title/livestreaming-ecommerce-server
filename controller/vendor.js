@@ -29,7 +29,7 @@ const register = async (req, res) => {
       email: req.body.email,
       cpf: req.body.cpf,
       store: req.body.store,
-      cnpj: req.body.cnpf,
+      cnpj: req.body.cnpj,
       address: req.body.address,
       number: req.body.number,
       neighborhood: req.body.neighborhood,
@@ -65,7 +65,7 @@ const register = async (req, res) => {
 const updateAccount = async (req, res) => {
   await Vendor.findByIdAndUpdate(req.body.id, req.body, { new: true })
     .then(async (item) => {
-      res.send({ status: 200, message: "success" });
+      res.send({ status: 200, message: "Usuário atualizado!" });
     })
     .catch((err) => {
       res.send({ status: 400, message: err });

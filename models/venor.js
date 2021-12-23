@@ -19,9 +19,11 @@ const VendorSchema = new Schema({
   },
   store: {
     type: Schema.Types.String,
-    required: true,
   },
   cnpj: {
+    type: Schema.Types.String,
+  },
+  social: {
     type: Schema.Types.String,
   },
   address: {
@@ -54,6 +56,9 @@ const VendorSchema = new Schema({
   role: {
     type: Schema.Types.Number,
     required: true,
+  },
+  isCpf: {
+    type: Schema.Types.Number,
   },
 });
 

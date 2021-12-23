@@ -46,10 +46,12 @@ module.exports = function validateRegisterInput(data) {
     }
   }
 
-  if (Validator.isEmpty(data.store)) {
-    errors.store = "Store field is required";
-    if (isEmpty(errorMsg)) {
-      errorMsg = errors.store;
+  if (data.role == 0) {
+    if (Validator.isEmpty(data.store)) {
+      errors.store = "Store field is required";
+      if (isEmpty(errorMsg)) {
+        errorMsg = errors.store;
+      }
     }
   }
   if (Validator.isEmpty(data.address)) {
