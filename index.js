@@ -31,6 +31,7 @@ mongoose
 
 //Use Routes
 app.use("/vendor", vendorRouter);
+app.use("/uploads/blogs", express.static(__dirname + "/uploads/blogs"));
 app.use("/uploads/avatars", express.static(__dirname + "/uploads/avatars"));
 
 app.all("*", (req, res, next) => {

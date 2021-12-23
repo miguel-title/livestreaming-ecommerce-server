@@ -1,8 +1,10 @@
-const Vendor = require("../models/venor");
 const bcrypt = require("bcryptjs");
 
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
+
+const Vendor = require("../models/venor");
+const Blog = require("../models/blog");
 
 //Load validation
 const validateLoginInput = require("../validation/vendor/login");
@@ -61,6 +63,40 @@ const register = async (req, res) => {
   });
 };
 
+const adminregister = async (req, res) => {
+  await Vendor.findOne({ email: "admin@treebee.com", role: 2 }).then(
+    (vendor) => {
+      if (vendor) {
+        throw new HttpException(200, "e-mail já existe");
+      }
+
+      const newAdmin = new Vendor({
+        email: "admin@treebee.com",
+        password: "admin_treebee",
+        role: 2,
+      });
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newAdmin.password, salt, (err, hash) => {
+          // if (err) throw err;
+          newAdmin.password = hash;
+          newAdmin
+            .save()
+            .then((admin) =>
+              res.send({
+                status: 200,
+                message: "Usuário Registrado!",
+                email: newAdmin.email,
+                role: newAdmin.role,
+              })
+            )
+            .catch((err) => console.log(err));
+        });
+      });
+    }
+  );
+};
+
 //updateAccount
 const updateAccount = async (req, res) => {
   await Vendor.findByIdAndUpdate(req.body.id, req.body, { new: true })
@@ -85,8 +121,10 @@ const login = async (req, res) => {
     if (!vendor) {
       if (role === 0) {
         errors.email = "Vendedor não encontrado";
-      } else {
+      } else if (role === 1) {
         errors.email = "Usuário não encontrado";
+      } else if (role === 2) {
+        errors.email = "Admin não encontrado";
       }
       throw new HttpException(400, errors.email);
     }
@@ -146,10 +184,103 @@ const uploadFile = async (req, res) => {
   return res.json({ url: fileUrl });
 };
 
+//About Blogs
+const getBlogs = async (req, res) => {
+  const nCount = req.body.count;
+  if (nCount != -1) {
+    await Blog.find()
+      .limit(nCount)
+      .then((blogdata) => {
+        res.send(blogdata);
+      })
+      .catch((err) => {
+        res.send({
+          status: 500,
+          msg: err,
+        });
+      });
+  } else {
+    await Blog.find()
+      .then((blogdata) => {
+        res.send(blogdata);
+      })
+      .catch((err) => {
+        res.send({
+          status: 500,
+          msg: err,
+        });
+      });
+  }
+};
+
+const getBlog = async (req, res) => {
+  const nID = req.body.id;
+  await Blog.findById(nID).then((BlogData) => {
+    if (!BlogData) {
+      throw new HttpException(400, "O servidor está com problemas.");
+    }
+
+    res.send(BlogData);
+  });
+};
+
+const insertBlog = async (req, res) => {
+  console.log(req.body, "aaaaaa");
+  const newBlog = new Blog({
+    name: req.body.name,
+    image: req.body.image,
+    createdDate: new Date(),
+    updateDate: new Date(),
+    content: req.body.content,
+  });
+
+  newBlog
+    .save()
+    .then((blog) => {
+      res.send({ status: 200, message: "Blog Inserido." });
+    })
+    .catch((err) => {
+      res.send({ status: 500 });
+    });
+};
+
+const updateBlog = async (req, res) => {
+  const nID = req.body.id;
+
+  req.body.updateDate = new Date();
+
+  console.log(req.body);
+
+  await Blog.findByIdAndUpdate(nID, req.body, { new: true })
+    .then(async (item) => {
+      res.send({ status: 200, message: "Blog atualizado!" });
+    })
+    .catch((err) => {
+      res.send({ status: 500, message: err });
+    });
+};
+
+const deleteBlog = async (req, res) => {
+  const nID = req.body.id;
+  await Blog.deleteOne({ _id: nID })
+    .then(async (item) => {
+      res.send({ status: 200, message: "Blog Excluído!" });
+    })
+    .catch((err) => {
+      res.send({ status: 500, message: err });
+    });
+};
+
 module.exports = {
   login,
   register,
+  adminregister,
   getAccountInfo,
   updateAccount,
   uploadFile,
+  getBlogs,
+  getBlog,
+  insertBlog,
+  updateBlog,
+  deleteBlog,
 };

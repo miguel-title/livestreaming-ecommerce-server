@@ -28,26 +28,21 @@ const VendorSchema = new Schema({
   },
   address: {
     type: Schema.Types.String,
-    required: true,
   },
   number: {
     type: Schema.Types.Number,
-    required: true,
   },
   complement: {
     type: Schema.Types.String,
   },
   neighborhood: {
     type: Schema.Types.String,
-    required: true,
   },
   estado: {
     type: Schema.Types.String,
-    required: true,
   },
   city: {
     type: Schema.Types.String,
-    required: true,
   },
   password: {
     type: Schema.Types.String,
