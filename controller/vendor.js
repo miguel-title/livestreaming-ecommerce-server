@@ -40,6 +40,7 @@ const register = async (req, res) => {
       city: req.body.city,
       password: req.body.password,
       role: req.body.role,
+      isCpf: req.body.isCpf,
       resteredDate: new Date(),
     });
 
