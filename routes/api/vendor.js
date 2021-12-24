@@ -44,6 +44,11 @@ router.post("/insertBlog", awaitHandlerFactory(VController.insertBlog));
 router.post("/updateBlog", awaitHandlerFactory(VController.updateBlog));
 router.post("/deleteBlog", awaitHandlerFactory(VController.deleteBlog));
 
+//About Seller and Buyers
+router.post("/getSellers", awaitHandlerFactory(VController.getSellers));
+router.post("/deleteUser", awaitHandlerFactory(VController.deleteUser));
+router.post("/getBuyers", awaitHandlerFactory(VController.getBuyers));
+
 router.post(
   "/upload",
   upload.single("file", 1),

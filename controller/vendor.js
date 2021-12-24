@@ -40,6 +40,7 @@ const register = async (req, res) => {
       city: req.body.city,
       password: req.body.password,
       role: req.body.role,
+      resteredDate: new Date(),
     });
 
     bcrypt.genSalt(10, (err, salt) => {
@@ -271,6 +272,75 @@ const deleteBlog = async (req, res) => {
     });
 };
 
+//About User
+const getSellers = async (req, res) => {
+  const nCount = req.body.count;
+  if (nCount != -1) {
+    await Vendor.find({ role: 0 })
+      .limit(nCount)
+      .then((vendordata) => {
+        res.send(vendordata);
+      })
+      .catch((err) => {
+        res.send({
+          status: 500,
+          msg: err,
+        });
+      });
+  } else {
+    await Vendor.find({ role: 0 })
+      .then((vendordata) => {
+        res.send(vendordata);
+      })
+      .catch((err) => {
+        res.send({
+          status: 500,
+          msg: err,
+        });
+      });
+  }
+};
+
+//About Blogs
+const getBuyers = async (req, res) => {
+  const nCount = req.body.count;
+  if (nCount != -1) {
+    await Vendor.find({ role: 1 })
+      .limit(nCount)
+      .then((vendordata) => {
+        res.send(vendordata);
+      })
+      .catch((err) => {
+        res.send({
+          status: 500,
+          msg: err,
+        });
+      });
+  } else {
+    await Vendor.find({ role: 1 })
+      .then((vendordata) => {
+        res.send(vendordata);
+      })
+      .catch((err) => {
+        res.send({
+          status: 500,
+          msg: err,
+        });
+      });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  const nID = req.body.id;
+  await Vendor.deleteOne({ _id: nID })
+    .then(async (item) => {
+      res.send({ status: 200, message: "Vendedor Excluído!" });
+    })
+    .catch((err) => {
+      res.send({ status: 500, message: err });
+    });
+};
+
 module.exports = {
   login,
   register,
@@ -283,4 +353,7 @@ module.exports = {
   insertBlog,
   updateBlog,
   deleteBlog,
+  getSellers,
+  deleteUser,
+  getBuyers,
 };

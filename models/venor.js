@@ -55,6 +55,9 @@ const VendorSchema = new Schema({
   isCpf: {
     type: Schema.Types.Number,
   },
+  resteredDate: {
+    type: Schema.Types.Date,
+  },
 });
 
 module.exports = Vendors = mongoose.model("vendors", VendorSchema);
