@@ -112,6 +112,7 @@ const updateAccount = async (req, res) => {
 
 //login
 const login = async (req, res) => {
+  console.log("aaaaa");
   const { errors, errorMsg, isValid } = validateLoginInput(req.body);
   if (!isValid) {
     throw new HttpException(400, errorMsg);
@@ -120,6 +121,7 @@ const login = async (req, res) => {
   const password = req.body.password;
   const role = req.body.role;
   await Vendor.findOne({ email, role }).then((vendor) => {
+    console.log(vendor, "aaa");
     if (!vendor) {
       if (role === 0) {
         errors.email = "Vendedor não encontrado";
